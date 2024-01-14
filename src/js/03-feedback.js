@@ -31,9 +31,24 @@ if (formData != null) {
 email.addEventListener('input', throttle(saveForm, 500, { leading: false }));
 message.addEventListener('input', throttle(saveForm, 500, { leading: false }));
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
   console.log(JSON.parse(localStorage.getItem(key)));
   localStorage.removeItem(key);
+
+  const url = '/api/email'
+  const response = await fetch(url, {
+    method: 'POST',
+    body: new URLSearchParams(new FormData(form))
+  })
+  try {
+    if (response.status === 200) {
+      window.location.href = (await response.json()).emailURL;
+    } else
+      console.log(await response.json());
+  }
+  catch (err) {
+    console.error(err + " url: " + url);
+  }
   form.reset();
 });
