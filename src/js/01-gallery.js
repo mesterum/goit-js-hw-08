@@ -19,9 +19,9 @@ function liForEachGalleryItem(item) {
   const img = clone.querySelector('img');
   const a = clone.querySelector('a');
 
-  img.src = item.preview;
+  img.src = 'https://mesterum.github.io/goit-js-hw-07/' + item.preview;
   img.alt = item.description;
-  a.href = item.original;
+  a.href = 'https://mesterum.github.io/goit-js-hw-07/' + item.original;
   return clone;
 }
 
